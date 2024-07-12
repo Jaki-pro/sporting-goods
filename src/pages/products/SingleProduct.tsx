@@ -1,7 +1,7 @@
 import { NavLink, Params, useParams } from "react-router-dom";
 import { useGetSingleProductQuery } from "../../redux/features/products/productApi";
 import { ObjectId } from "bson";
-import { Button, Card } from "antd";
+import { Button, Card, Rate } from "antd";
 import Meta from "antd/es/card/Meta";
 import {
   CarryOutOutlined,
@@ -88,7 +88,18 @@ const SingleProduct = () => {
             </Button>,
           ]}
         >
-          <Meta title={product.name} description={product.description} />
+          <div className="flex gap-6 justify-between mb-4">
+            <Meta title={product.name} description={product.brand} />
+            <p>{product.description}</p>
+          </div>
+          <hr />
+          <div className="flex gap-4 mt-4 justify-between">
+            <label className="text-lg">Price: {product.price} $</label>
+            <br />
+            <label className="text-lg">
+              reviews: <Rate disabled defaultValue={product.rating} />
+            </label>
+          </div>
         </Card>
       )}
     </>

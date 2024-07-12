@@ -39,8 +39,10 @@ const CustomFilter = ({
       setPrice("");
     };
     return (
-      <div className="p-6  rounded-lg max-w-full mx-auto sm:flex gap-2 items-center justify-center mb-8">
-        <p className="tracking-wider font-semibold mb-4">Filter Products: </p>
+      <div className="p-6  rounded-lg max-w-full mx-auto items-center justify-center mb-8">
+        <p className="tracking-wider text-xl font-semibold mb-4">
+          Filter Products:{" "}
+        </p>
         <div className="mb-4">
           <select
             id="category"
@@ -48,7 +50,7 @@ const CustomFilter = ({
             onChange={(e) => setCategory(e.target.value)}
             className="block appearance-none w-full bg-gray-100 border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded-md shadow-sm leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">Select a category</option>
+            <option value="">Select category</option>
             <option value="Football">Football</option>
             <option value="Cricket">Cricket</option>
             <option value="Volleyball">Volleyball</option>
@@ -63,7 +65,7 @@ const CustomFilter = ({
             onChange={(e) => setBrand(e.target.value)}
             className="block appearance-none w-full bg-gray-100 border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded-md shadow-sm leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">Select a brand</option>
+            <option value="">Select brand</option>
             <option value="Nike">Nike</option>
             <option value="Adidas">Adidas</option>
             <option value="Puma">Puma</option>
@@ -78,7 +80,7 @@ const CustomFilter = ({
             onChange={(e) => setPrice(e.target.value)}
             className="block appearance-none w-full bg-gray-100 border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded-md shadow-sm leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">Select a price range</option>
+            <option value="">Select price range</option>
             <option value="0-50">$0 - $50</option>
             <option value="50-100">$50 - $100</option>
             <option value="100-200">$100 - $200</option>
@@ -92,7 +94,7 @@ const CustomFilter = ({
             onChange={(e) => setRating(e.target.value)}
             className="block appearance-none w-full bg-gray-100 border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded-md shadow-sm leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">Select a rating</option>
+            <option value="">Select rating</option>
             <option value="1">1 Star</option>
             <option value="2">2 Stars</option>
             <option value="3">3 Stars</option>
@@ -102,7 +104,7 @@ const CustomFilter = ({
         </div>
         <Button
           onClick={handleCLearFilter}
-          className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mb-3"
+          className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mb-3 mr-2"
         >
           Clear Filter
         </Button>

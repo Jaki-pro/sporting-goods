@@ -43,6 +43,7 @@ const productApi = baseApi.injectEndpoints({
       query: (id: string) => {
         return { url: `/products/${id}`, method: "GET" };
       },
+      providesTags: ["products"],
     }),
   }),
 });
