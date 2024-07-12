@@ -4,10 +4,11 @@ const productApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getAllProducts: build.query({
       query: (query) => {
-        console.log(query);
+        // console.log(query);
         return {
-          url: `products/?searchTerm=${query.name ? query.name : ""}`,
+          url: `products/`,
           method: "GET",
+          params: query,
         };
       },
       providesTags: ["products"],

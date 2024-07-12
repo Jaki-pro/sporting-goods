@@ -12,7 +12,7 @@ const CartItems = () => {
   if (isLoading) return <p>loading..</p>;
   const { data } = products;
   let isExceedQuantity = 0;
-  data.forEach((product) => {
+  data.forEach((product: any) => {
     const productId = product._id;
     const productInCart = items.find(
       (item) => item.productId === productId && item.quantity > product.stock
