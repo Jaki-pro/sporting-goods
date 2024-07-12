@@ -1,5 +1,7 @@
+import { ObjectId } from "bson";
+
 export type TProduct = {
-  _id?: any;
+  _id?: ObjectId | any;
   name: string;
   description: string;
   category: string;
