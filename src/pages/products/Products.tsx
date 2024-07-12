@@ -30,7 +30,7 @@ const Products = () => {
     dispatch(removeFromCart(id));
   };
   // search functionality
-  const onsubmit = (data: FieldValues) => {
+  const onSubmit = (data: FieldValues) => {
     const newQuery = {
       searchTerm: data.name,
       category: category,
@@ -51,7 +51,7 @@ const Products = () => {
       {/**search bar */}
       <div className="">
         <form
-          onSubmit={handleSubmit(onsubmit)}
+          onSubmit={handleSubmit(onSubmit)}
           className="flex justify-center gap-8 mx-8 items-center "
         >
           <div className="flex items-center bg-white border rounded shadow-sm mb-4 p-2 w-2/3">
@@ -89,6 +89,7 @@ const Products = () => {
           setBrand={setBrand}
           setRating={setRating}
           setPrice={setPrice}
+          onSubmit={onSubmit}
         ></CustomFilter>
       </div>
 
