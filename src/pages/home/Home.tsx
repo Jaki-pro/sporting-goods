@@ -20,12 +20,12 @@ const Home = () => {
       <div className="flex flex-wrap mb-12 gap-6 justify-center">
         {products?.map((product: TProduct) => (
           <Card
-            style={{ width: 300 }}
+            style={{ width: 320 }}
             key={product._id}
             cover={
               <img
                 alt="example"
-                className="size-72 p-2 rounded-md"
+                className="size-48 p-2 rounded-md"
                 src={product.image}
               />
             }

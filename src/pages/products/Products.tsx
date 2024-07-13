@@ -134,7 +134,7 @@ const Products = () => {
             cover={
               <img
                 alt="example"
-                className="size-64 p-2 rounded-md"
+                className="size-48 p-2 rounded-md"
                 src={product.image}
               />
             }

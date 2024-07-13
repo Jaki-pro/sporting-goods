@@ -37,14 +37,14 @@ const CustomFilter = ({
       categoryList.push(product.category);
     if (!brandList.includes(product.brand)) brandList.push(product.brand);
   });
-  const handleCLearFilter = () => {
+  const handleCLearFilter = async () => {
     setCategory("");
     setBrand("");
     setRating("");
     setPrice("");
   };
   return (
-    <div className="p-6  rounded-lg max-w-full mx-auto items-center justify-center">
+    <div className="sm:pr-12 py-6  rounded-lg max-w-full mx-auto items-center justify-center ">
       <p className="tracking-wider text-2xl font-semibold mb-4">
         Filter Products:{" "}
       </p>
