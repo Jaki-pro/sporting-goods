@@ -22,7 +22,7 @@ const CartItems = () => {
   const cost = items.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
   //console.log(items);
   return (
-    <div className="flex">
+    <div className="sm:flex">
       <div className="flex-3 p-5 w-full h-full  rounded-lg space-y-3">
         <h1 className="text-center p-4 font-bold text-4xl font-serif tracking-widest border-b-4 border-amber-950">
           Shopping Cart
@@ -32,7 +32,10 @@ const CartItems = () => {
           <Cart key={index} item={item} />
         ))}
       </div>
-      <div className="flex-2  bg-[#0F3151] p-2 mx-4" style={{ width: "40%" }}>
+      <div
+        className="flex-2  bg-[#0F3151] p-2 mx-auto"
+        style={{ width: "40%" }}
+      >
         <div style={{ width: "100%", textAlign: "center" }}>
           <h1 className="text-3xl text-slate-100 font-bold mb-4 tracking-widest font-serif">
             Summary

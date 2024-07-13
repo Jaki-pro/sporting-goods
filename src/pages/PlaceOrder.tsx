@@ -7,6 +7,7 @@ import { clearCart } from "../redux/features/cart/cartSlice";
 import { ObjectId } from "bson";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+
 type TPlaceOrderItem = {
   productId: ObjectId; // MongoDB ObjectId as a string
   title: string;
@@ -28,6 +29,7 @@ const PlaceOrder = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const cost = items.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+
   const onSubmit = async (data: FieldValues) => {
     for (const item of items) {
       const newItem: TPlaceOrderItem = {
@@ -50,33 +52,36 @@ const PlaceOrder = () => {
     toast.success("Order placed successfully", { duration: 2000 });
     navigate("/success");
   };
+
   return (
     <Row
       justify="center"
       align="middle"
       style={{ width: "100%", height: "100vh" }}
     >
-      <FormProvider {...methods}>
-        {/** Main part of Form */}
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <h1 className="text-3xl font-bold text-[#001529] text-center mb-8">
-            Order placement
-          </h1>
-          <div className="grid md:grid-cols-2 md:gap-4">
-            <CustomInput name="name" type="text" lable="Name" />
-            <CustomInput name="email" type="email" lable="Email" />
-            <CustomInput name="number" type="text" lable="number" />
-            <CustomInput name="address" type="text" lable="address" />
-          </div>
-          <Button
-            className="w-full bg-[#001529] text-[white] h-12 mt-8"
-            style={{ width: "100%" }}
-            htmlType="submit"
-          >
-            Place Order
-          </Button>
-        </form>
-      </FormProvider>
+      <div className="border-4 border-dashed border-blue-500 p-8 rounded-lg shadow-lg w-full max-w-xl">
+        <FormProvider {...methods}>
+          {/** Main part of Form */}
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <h1 className="text-3xl font-bold text-[#001529] text-center mb-8">
+              Order Placement
+            </h1>
+            <div className="grid md:grid-cols-2 md:gap-4">
+              <CustomInput name="name" type="text" label="Name" />
+              <CustomInput name="email" type="email" label="Email" />
+              <CustomInput name="number" type="text" label="Number" />
+              <CustomInput name="address" type="text" label="Address" />
+            </div>
+            <Button
+              className="w-full bg-[#001529] text-white h-12 mt-8"
+              style={{ width: "100%" }}
+              htmlType="submit"
+            >
+              Place Order
+            </Button>
+          </form>
+        </FormProvider>
+      </div>
     </Row>
   );
 };

@@ -28,7 +28,7 @@ const menuItems = [
 const items = menuItems.map((item, index) => ({
   key: index,
   label: (
-    <NavLink to={`/${item.endpoint}`} className="mx-8 text-xl">
+    <NavLink to={`/${item.endpoint}`} className="mx-8 text-lg">
       {`${item.name} `}
       {item.endpoint === "cart" && (
         <ShoppingCartOutlined style={{ width: "20px" }} />
@@ -49,7 +49,9 @@ const NavBar = () => {
           alignItems: "center",
         }}
       >
-        <Logo />
+        <NavLink to="/">
+          <Logo />
+        </NavLink>
         <Menu
           theme="dark"
           mode="horizontal"

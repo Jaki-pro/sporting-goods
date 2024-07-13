@@ -7,7 +7,7 @@ const About: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         {/* Company Information Section */}
         <section className="mb-12">
-          <h2 className="text-5xl font-bold text-center mb-8 text-[#06233E]">
+          <h2 className="text-3xl font-bold text-center mb-8 text-[#06233E]">
             About Our Company
           </h2>
           <p className="text-lg text-gray-700 text-center leading-relaxed">
@@ -38,7 +38,7 @@ const About: React.FC = () => {
 
         {/* Contact Information Section */}
         <section className="mb-12">
-          <h2 className="text-4xl font-bold text-center mb-6 text-blue-800">
+          <h2 className="text-3xl font-bold text-center mb-6 text-[#001529]">
             Contact Us
           </h2>
           <div className="text-center">
@@ -57,7 +57,7 @@ const About: React.FC = () => {
 
         {/* Our Team Section */}
         <section className="mb-12">
-          <h2 className="text-4xl font-bold text-center mb-6 text-blue-800">
+          <h2 className="text-4xl font-bold text-center mb-6  text-[#001529]">
             Our Team
           </h2>
           <div className="flex flex-wrap justify-center">
@@ -72,7 +72,7 @@ const About: React.FC = () => {
                 <h3 className="text-xl font-semibold text-blue-800">
                   Jakaria Hossain
                 </h3>
-                <p className="text-gray-700">CEO</p>
+                <p className="text-[#001529]">CEO</p>
               </div>
             </div>
             <div className="w-full sm:w-1/2 md:w-1/3 p-4">
@@ -85,7 +85,7 @@ const About: React.FC = () => {
                 <h3 className="text-xl font-semibold text-blue-800">
                   Arafat Hossain
                 </h3>
-                <p className="text-gray-700">MD</p>
+                <p className=" text-[#001529]">MD</p>
               </div>
             </div>
             {/* Add more team members here */}
@@ -94,7 +94,7 @@ const About: React.FC = () => {
 
         {/* Our Store Location Section */}
         <section className="mb-12">
-          <h2 className="text-4xl font-bold text-center mb-6 text-blue-800">
+          <h2 className="text-3xl font-bold text-center mb-6  text-[#001529]">
             Our Store Location
           </h2>
           <div className="text-center">

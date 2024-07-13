@@ -90,22 +90,11 @@ const SingleProduct = () => {
           cover={
             <img alt="example" className="size-96 p-2" src={product.image} />
           }
-          className="mx-auto"
+          className="mx-auto p-2"
           actions={[
-            // <EditOutlined key="edit" />,
-            <NavLink to={`/products/update-product/${product._id}`}>
-              <Button
-                className="bg-[#001529] p-6 text-[white] text-xl"
-                type="primary"
-                ghost
-              >
-                Edit
-                <EditOutlined></EditOutlined>
-              </Button>
-            </NavLink>,
             <Button
               onClick={handleAddToCart}
-              className="bg-[#001529] p-6 text-[white] text-xl"
+              className="bg-[#001529] p-6 w-full text-[white] text-xl"
             >
               Add to Cart
               <ShoppingCartOutlined />
@@ -114,20 +103,23 @@ const SingleProduct = () => {
         >
           <div className=" mb-4">
             <div className="flex justify-between mb-4">
-              <h2 className="text-3xl font-semibold">{product.name}</h2>
-              <Meta className="text-xl" description={product.brand} />
+              <h2 className="text-2xl font-semibold">{product.name}</h2>
+              <Meta
+                className="text-lg"
+                description={`brand: ${product.brand}`}
+              />
             </div>
             <p className="text-lg">{product.description}</p>
           </div>
           <hr />
           <div className="flex gap-4 mt-4 justify-between mb-4">
-            <label className="text-xl">Stock: {product.stock} $</label>
+            <label className="text-lg">Stock: {product.stock} $</label>
             <br />
             <label className="text-lg">Category: {product.category}</label>
           </div>
           <hr />
           <div className="flex gap-4 mt-4 justify-between">
-            <label className="text-xl">Price: {product.price} $</label>
+            <label className="text-lg">Price: {product.price} $</label>
             <br />
             <label className="text-lg">
               reviews: <Rate disabled defaultValue={product.rating} />

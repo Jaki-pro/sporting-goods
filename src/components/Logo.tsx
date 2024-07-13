@@ -15,7 +15,7 @@ const Logo = () => {
           d="M12 4.354a4 4 0 110 7.292m0 2.354a6 6 0 100 12m-6-18a6 6 0 000 12m6-6a6 6 0 00-6 6"
         ></path>
       </svg>
-      <h1 className="text-3xl font-bold text-gray-800">
+      <h1 className="text-2xl font-bold text-gray-800">
         <span className="text-slate-400">Sporting </span>
         <span className="text-purple-500">goods</span>
       </h1>

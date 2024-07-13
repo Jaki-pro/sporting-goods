@@ -3,10 +3,10 @@ import { Controller, useFormContext } from "react-hook-form";
 type TInputProps = {
   name: string;
   type: string;
-  lable?: string;
+  label?: string;
 };
 
-const CustomInput = ({ name, type, lable: label }: TInputProps) => {
+const CustomInput = ({ name, type, label }: TInputProps) => {
   const { control } = useFormContext();
   return (
     <div style={{ marginBottom: "20px" }}>

@@ -1,5 +1,6 @@
 import { Button } from "antd";
 import { SetStateAction, Dispatch } from "react";
+import { useGetAllProductsQuery } from "../redux/features/products/productApi";
 
 const CustomFilter = ({
   brand,
@@ -23,6 +24,19 @@ const CustomFilter = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: any;
 }) => {
+  const { data, isLoading } = useGetAllProductsQuery({});
+  console.log(data);
+  if (isLoading) return <p>loading</p>;
+
+  /** create category and brand list for dropdown */
+  const categoryList: string[] = [];
+  const brandList: string[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data?.data.forEach((product: any) => {
+    if (!categoryList.includes(product.category))
+      categoryList.push(product.category);
+    if (!brandList.includes(product.brand)) brandList.push(product.brand);
+  });
   const handleCLearFilter = () => {
     setCategory("");
     setBrand("");
@@ -42,11 +56,16 @@ const CustomFilter = ({
           className="block appearance-none w-full bg-gray-100 border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded-md shadow-sm leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select category</option>
-          <option value="Football">Football</option>
+          {categoryList.map((category: string, index: number) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+          {/* <option value="Football">Football</option>
           <option value="Cricket">Cricket</option>
           <option value="Volleyball">Volleyball</option>
           <option value="Basketball">Basketball</option>
-          <option value="Racquet">Racquet </option>
+          <option value="Racquet">Racquet </option> */}
         </select>
       </div>
       <div className="mb-4">
@@ -57,11 +76,19 @@ const CustomFilter = ({
           className="block appearance-none w-full bg-gray-100 border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded-md shadow-sm leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select brand</option>
-          <option value="Nike">Nike</option>
+          {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            brandList.map((brand: string, index: number) => (
+              <option key={index} value={brand}>
+                {brand}
+              </option>
+            ))
+          }
+          {/* <option value="Nike">Nike</option>
           <option value="Adidas">Adidas</option>
           <option value="Puma">Puma</option>
           <option value="Reebok">Reebok</option>
-          <option value="Yonex">Yonex</option>
+          <option value="Yonex">Yonex</option> */}
         </select>
       </div>
       <div className="mb-4">

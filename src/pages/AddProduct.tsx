@@ -44,40 +44,51 @@ const AddProduct = () => {
       align="middle"
       style={{ width: "100%", height: "100vh" }}
     >
-      <FormProvider {...methods}>
-        {/** Main part of Form */}
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <h1 className="text-3xl font-bold text-[#001529] text-center mb-8">
-            Add Product in your store
-          </h1>
-          <div className="md:flex md:gap-4">
-            <div>
-              <CustomInput name="name" type="text" lable="Title" />
-              <CustomInput name="description" type="text" lable="Description" />
-              <CustomInput name="category" type="text" lable="Category" />
-              <CustomInput name="brand" type="text" lable="Brand" />
-            </div>
-            <div>
-              <CustomInput name="stock" type="text" lable="Stock" />
-              <CustomInput name="price" type="text" lable="Price" />
-              <CustomInput name="rating" type="text" lable="rating" />
-              <div className="mb-4">
-                <label htmlFor="image">Upload Image</label>
-                <br />
-                <input
-                  type="file"
-                  className=""
-                  {...methods.register("image")}
+      <div className="border-4 border-dashed border-blue-500 p-8 rounded-lg shadow-lg w-full max-w-xl bg-white">
+        <FormProvider {...methods}>
+          {/** Main part of Form */}
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <h1 className="text-3xl font-bold text-[#001529] text-center mb-8">
+              Add Product to Your Store
+            </h1>
+            <div className="md:flex md:gap-4">
+              <div className="flex-1 mb-4 md:mb-0">
+                <CustomInput name="name" type="text" label="Title" />
+                <CustomInput
+                  name="description"
+                  type="text"
+                  label="Description"
                 />
+                <CustomInput name="category" type="text" label="Category" />
+                <CustomInput name="brand" type="text" label="Brand" />
+              </div>
+              <div className="flex-1">
+                <CustomInput name="stock" type="text" label="Stock" />
+                <CustomInput name="price" type="text" label="Price" />
+                <CustomInput name="rating" type="text" label="Rating" />
+                <div className="mb-4">
+                  <label htmlFor="image" className="block text-gray-700">
+                    Upload Image
+                  </label>
+                  <input
+                    type="file"
+                    className="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    {...methods.register("image")}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          {error && <p className="text-[red] text-center mb-2">{error}</p>}
-          <Button style={{ width: "100%" }} type="primary" htmlType="submit">
-            Add
-          </Button>
-        </form>
-      </FormProvider>
+            {error && <p className="text-red-500 text-center mb-2">{error}</p>}
+            <Button
+              className="w-full bg-[#001529] text-white h-12 mt-8 rounded-md hover:bg-blue-700 transition-colors"
+              type="primary"
+              htmlType="submit"
+            >
+              Add Product
+            </Button>
+          </form>
+        </FormProvider>
+      </div>
     </Row>
   );
 };

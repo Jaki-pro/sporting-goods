@@ -7,7 +7,7 @@ import Contact from "../Contact";
 
 const Home = () => {
   const { data, isLoading } = useGetAllProductsQuery(
-    { limit: 6, page: 1 },
+    { limit: 8, page: 1 },
     { pollingInterval: 30000 }
   );
   if (isLoading) return <p>loading..</p>;
@@ -17,18 +17,22 @@ const Home = () => {
       <h1 className="text-center p-4 pt-16 mb-16 font-bold text-4xl font-serif tracking-widest border-b-2 border-amber-950">
         Latest Sporting Collection
       </h1>
-      <div className="flex flex-wrap gap-8 justify-center">
+      <div className="flex flex-wrap mb-12 gap-6 justify-center">
         {products?.map((product: TProduct) => (
           <Card
-            style={{ width: 400 }}
+            style={{ width: 300 }}
             key={product._id}
             cover={
-              <img alt="example" className="size-72 p-2" src={product.image} />
+              <img
+                alt="example"
+                className="size-72 p-2 rounded-md"
+                src={product.image}
+              />
             }
             className=""
             actions={[
               <NavLink to={`/products/${product._id}`}>
-                <Button className="bg-[#001529] p-6 text-[white] text-xl w-full">
+                <Button className="bg-[#001529] p-4 text-[white] text-lg w-full">
                   Explore
                 </Button>
               </NavLink>,
@@ -37,27 +41,27 @@ const Home = () => {
           >
             <div className="flex justify-between mb-4">
               <div>
-                <h2 className="text-xl font-bold ">{product.name}</h2>
-                <p className="text-xl text-[#a4acba]">{product.brand}</p>
+                <h2 className="text-lg font-bold ">{product.name}</h2>
+                <p className="text-lg text-[#a4acba]">{product.brand}</p>
               </div>
               <div className="ml-4">
-                <h3 className="text-xl font-semibold">
+                <h3 className="text-lg font-semibold">
                   Price: {product.price}
                 </h3>
                 <Meta
-                  className="text-xl"
+                  className="text-lg"
                   description={`category: ${product.category}`}
                 />
               </div>
             </div>
             <hr />
             <div className="my-2">
-              <p className="text-lg">{product.description.slice(0, 100)}...</p>
+              <p className="text-md">{product.description.slice(0, 100)}...</p>
             </div>
             <hr />
             <div className="flex justify-between items-center mt-4 text-[16px]">
               <Rate className="mt-2" disabled defaultValue={product.rating} />
-              <p className="text-xl">stock: {product.stock}</p>
+              <p className="text-lg">stock: {product.stock}</p>
             </div>
           </Card>
         ))}

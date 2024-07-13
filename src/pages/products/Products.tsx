@@ -1,6 +1,5 @@
 import { Button, Card, Pagination, PaginationProps, Rate } from "antd";
 
-import Meta from "antd/es/card/Meta";
 import { useGetAllProductsQuery } from "../../redux/features/products/productApi";
 import { TProduct } from "./product.const";
 import { NavLink } from "react-router-dom";
@@ -68,10 +67,7 @@ const Products = () => {
       limit: productsPerPage,
     };
     setQuery(newQuery);
-    // fetch data with search query
   };
-  //console.log(products?.data);
-  console.log(query);
   return (
     <div className="pt-4">
       {/**search bar */}
@@ -104,12 +100,12 @@ const Products = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 type="text"
                 placeholder="Search..."
-                className="ml-2 w-full outline-none py-1"
+                className="ml-2 w-full outline-none"
               />
             </div>
             <Button
               htmlType="submit"
-              className="bg-[#001529] p-6 text-[white] text-xl mb-4"
+              className="bg-[#001529] p-5 text-[white] text-lg mb-4"
             >
               Search
             </Button>
@@ -130,18 +126,22 @@ const Products = () => {
         <div></div>
       </div>
 
-      <div className="flex gap-8 flex-wrap justify-center mx-8">
+      <div className="flex gap-6 flex-wrap justify-center mx-8">
         {products?.data?.map((product: TProduct) => (
           <Card
-            style={{ width: 350 }}
+            style={{ width: 275 }}
             key={product._id}
             cover={
-              <img alt="example" className="size-72 p-2" src={product.image} />
+              <img
+                alt="example"
+                className="size-64 p-2 rounded-md"
+                src={product.image}
+              />
             }
             className=""
             actions={[
               <NavLink to={`/products/${product._id}`}>
-                <Button className="bg-[#001529] p-6 text-[white] text-xl w-full">
+                <Button className="bg-[#001529] p-4 text-[white] text-lg w-full">
                   Explore
                 </Button>
               </NavLink>,
@@ -149,28 +149,18 @@ const Products = () => {
             ]}
           >
             <div className="flex justify-between mb-4">
-              <div>
-                <h2 className="text-xl font-bold ">{product.name}</h2>
-                <p className="text-xl text-[#a4acba]">{product.brand}</p>
-              </div>
-              <div className="ml-4">
-                <h3 className="text-xl font-semibold">
-                  Price: {product.price}
-                </h3>
-                <Meta
-                  className="text-xl"
-                  description={`category: ${product.category}`}
-                />
-              </div>
+              <h3 className="text-lg font-bold ">{product.name}</h3>
+
+              <h3 className="text-lg font-semibold">Price: {product.price}</h3>
             </div>
             <hr />
             <div className="my-2">
-              <p className="text-lg">{product.description.slice(0, 100)}...</p>
+              <p className="text-md">{product.description.slice(0, 100)}...</p>
             </div>
             <hr />
             <div className="flex justify-between items-center mt-4 text-[16px]">
               <Rate className="mt-2" disabled defaultValue={product.rating} />
-              <p className="text-xl">stock: {product.stock}</p>
+              <p className="text-lg">stock: {product.stock}</p>
             </div>
           </Card>
         ))}
@@ -184,15 +174,6 @@ const Products = () => {
           onChange={onChange}
           showSizeChanger
           onShowSizeChange={onShowSizeChange}
-          itemRender={(_current, type, originalElement) => (
-            <span
-              className={`${
-                type === "page" ? "text-xl" : ""
-              } ant-pagination-item-link`}
-            >
-              {originalElement}
-            </span>
-          )}
         ></Pagination>
       </div>
       {/* PAGINATION */}
