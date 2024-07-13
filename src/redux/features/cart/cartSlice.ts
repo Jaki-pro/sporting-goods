@@ -46,6 +46,9 @@ const cartSlice = createSlice({
       if (item!.quantity > 0) {
         item!.quantity--;
       }
+      if (item!.quantity === 0) {
+        state.items = state.items.filter((x) => x.productId !== productId);
+      }
     },
     removeFromCart: (state, action) => {
       const productId = action.payload;

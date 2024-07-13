@@ -1,8 +1,8 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { Header } from "antd/es/layout/layout";
-import React from "react";
 import { NavLink } from "react-router-dom";
+import Logo from "./Logo";
 const menuItems = [
   {
     endpoint: "",
@@ -13,16 +13,12 @@ const menuItems = [
     name: "Products",
   },
   {
-    endpoint: "add-product",
-    name: "Add Product",
+    endpoint: "manage-products",
+    name: "Manage Products",
   },
   {
     endpoint: "about",
-    name: "About",
-  },
-  {
-    endpoint: "contact",
-    name: "Contact",
+    name: "About Us",
   },
   {
     endpoint: "cart",
@@ -32,7 +28,7 @@ const menuItems = [
 const items = menuItems.map((item, index) => ({
   key: index,
   label: (
-    <NavLink to={`/${item.endpoint}`} className="mx-8">
+    <NavLink to={`/${item.endpoint}`} className="mx-8 text-xl">
       {`${item.name} `}
       {item.endpoint === "cart" && (
         <ShoppingCartOutlined style={{ width: "20px" }} />
@@ -45,15 +41,15 @@ const NavBar = () => {
     <div>
       <Header
         style={{
-          position: "sticky",
+          position: "fixed",
           top: 0,
-          zIndex: 1,
+          zIndex: 100,
           width: "100%",
           display: "flex",
           alignItems: "center",
         }}
       >
-        <div className="demo-logo" />
+        <Logo />
         <Menu
           theme="dark"
           mode="horizontal"

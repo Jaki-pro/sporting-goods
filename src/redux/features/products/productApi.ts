@@ -19,6 +19,7 @@ const productApi = baseApi.injectEndpoints({
           url: "/products",
           method: "POST",
           body: formData,
+          "Content-Type": "multipart/form-data",
         };
       },
       invalidatesTags: ["products"],

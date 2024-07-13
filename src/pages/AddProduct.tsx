@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { useAddProductMutation } from "../redux/features/products/productApi";
 import { Button, Row } from "antd";
@@ -8,7 +7,7 @@ import { toast } from "sonner";
 
 const AddProduct = () => {
   const methods = useForm();
-  const [addProduct, { data }] = useAddProductMutation();
+  const [addProduct] = useAddProductMutation();
   const [error, setError] = useState("");
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Adding Product");
@@ -28,7 +27,8 @@ const AddProduct = () => {
 
     formData.append("file", file);
     formData.append("data", JSON.stringify(textData));
-    const res = await addProduct(formData);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const res: any = await addProduct(formData);
     setError(res?.error?.data?.message);
     if (res["error"])
       toast.error("Something went wrong", { duration: 2000, id: toastId });
@@ -79,45 +79,6 @@ const AddProduct = () => {
         </form>
       </FormProvider>
     </Row>
-    // <div className="mx-auto w-300">
-    //   <form onSubmit={handleSubmit(onSubmit)}>
-    //     <div className="mb-4">
-    //       <label htmlFor="name">Name</label>
-    //       <input type="text" {...register("name")} id="name" />
-    //     </div>
-    //     <div className="mb-4">
-    //       <label htmlFor="description">description</label>
-    //       <input type="text" {...register("description")} id="description" />
-    //     </div>
-    //     <div className="mb-4">
-    //       <label htmlFor="category">category</label>
-    //       <input type="text" {...register("category")} id="category" />
-    //     </div>
-    //     <div className="mb-4">
-    //       <label htmlFor="brand">brand</label>
-    //       <input type="text" {...register("brand")} id="brand" />
-    //     </div>
-    //     <div className="mb-4">
-    //       <label htmlFor="stock">stock</label>
-    //       <input type="number" {...register("stock")} id="stock" />
-    //     </div>
-    //     <div className="mb-4">
-    //       <label htmlFor="rating">rating</label>
-    //       <input type="text" {...register("rating")} id="rating" />
-    //     </div>
-    //     <div className="mb-4">
-    //       <label htmlFor="price">price</label>
-    //       <input type="text" {...register("price")} id="price" />
-    //     </div>
-    //     <div>
-    //       <label htmlFor="image">image</label>
-    //       <input type="file" {...register("image")} id="image" />
-    //     </div>
-    //     <button className="p-4" type="submit">
-    //       submit
-    //     </button>
-    //   </form>
-    // </div>
   );
 };
 

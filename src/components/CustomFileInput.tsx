@@ -1,5 +1,4 @@
 import { Input } from "antd";
-import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 const CustomFileInput = () => {

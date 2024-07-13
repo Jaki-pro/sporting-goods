@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../redux/hooks";
 import Cart from "./Cart";
 import { Button } from "antd";
@@ -8,10 +7,10 @@ import { NavLink } from "react-router-dom";
 const CartItems = () => {
   const { items } = useAppSelector((state) => state.cart);
   const { data: products, isLoading } = useGetAllProductsQuery({});
-  const [isDisabled, setIsDisabled] = useState(false);
   if (isLoading) return <p>loading..</p>;
   const { data } = products;
   let isExceedQuantity = 0;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data.forEach((product: any) => {
     const productId = product._id;
     const productInCart = items.find(
@@ -62,7 +61,7 @@ const CartItems = () => {
           </div>
           <hr />
 
-          {isExceedQuantity ? (
+          {isExceedQuantity || items?.length === 0 ? (
             <Button
               disabled
               className="w-full bg-[#001529] text-[white] h-12 mt-8 "

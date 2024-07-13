@@ -3,6 +3,8 @@
   color: #fff;
   padding: 50px 0;
   text-align: center;
+  margin-bottom: 0;
+  bottom: 0;
 }
 
 .footer-container {
@@ -20,12 +22,12 @@
 }
 
 .footer-section h4 {
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 15px;
 }
 
 .footer-section p {
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.5;
 }
 
@@ -41,7 +43,7 @@
 .footer-section ul li a {
   color: #fff;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .footer-section ul li a:hover {
@@ -69,5 +71,5 @@
 }
 
 .footer-bottom p {
-  font-size: 14px;
+  font-size: 18px;
 }

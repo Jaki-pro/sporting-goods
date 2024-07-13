@@ -1,11 +1,12 @@
 import { Button, Row } from "antd";
-import React from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../components/CustomInput";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { usePlaceOrderMutation } from "../redux/features/orders/orderApi";
 import { clearCart } from "../redux/features/cart/cartSlice";
 import { ObjectId } from "bson";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 type TPlaceOrderItem = {
   productId: ObjectId; // MongoDB ObjectId as a string
   title: string;
@@ -23,8 +24,9 @@ type TPlaceOrderItem = {
 const PlaceOrder = () => {
   const methods = useForm();
   const { items } = useAppSelector((state) => state.cart);
-  const [placeOrder, { isLoading }] = usePlaceOrderMutation();
+  const [placeOrder] = usePlaceOrderMutation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const cost = items.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
   const onSubmit = async (data: FieldValues) => {
     for (const item of items) {
@@ -45,6 +47,8 @@ const PlaceOrder = () => {
       await placeOrder(newItem);
     }
     dispatch(clearCart());
+    toast.success("Order placed successfully", { duration: 2000 });
+    navigate("/success");
   };
   return (
     <Row

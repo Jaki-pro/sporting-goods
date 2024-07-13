@@ -1,5 +1,4 @@
 import { Button } from "antd";
-import React from "react";
 import {
   decreaseQuantity,
   increaseQuantity,
@@ -8,7 +7,7 @@ import {
 } from "../../redux/features/cart/cartSlice";
 import { useAppDispatch } from "../../redux/hooks";
 
-const Cart = ({ item }) => {
+const Cart = ({ item }: { item: TCartItem }) => {
   const dispatch = useAppDispatch();
   const price = item.price * item.quantity;
   return (

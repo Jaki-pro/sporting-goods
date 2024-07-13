@@ -1,27 +1,24 @@
 import { Button, Row } from "antd";
-import React from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../../components/CustomInput";
-import { useLoaderData, useParams } from "react-router-dom";
-import {
-  useGetSingleProductQuery,
-  useUpdateProductMutation,
-} from "../../redux/features/products/productApi";
+import { useLoaderData } from "react-router-dom";
+import { useUpdateProductMutation } from "../../redux/features/products/productApi";
 import { toast } from "sonner";
-// type TUpdateData = {
-//   name: string;
-//   description: string;
-//   category: string;
-//   brand: string;
-//   stock: number;
-//   price: number;
-//   rating: number;
-// };
-
+interface ProductData {
+  _id: string;
+  name: string;
+  description: string;
+  category: string;
+  brand: string;
+  stock: number;
+  price: number;
+  rating: number;
+}
 const UpdateProduct = () => {
   // Use form
-  const product = useLoaderData();
-  const [updateProduct, { isLoading }] = useUpdateProductMutation();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const product = useLoaderData() as ProductData | any;
+  const [updateProduct] = useUpdateProductMutation();
   const methods = useForm({
     defaultValues: product?.data,
   });

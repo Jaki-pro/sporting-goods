@@ -1,22 +1,15 @@
-import { NavLink, Params, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useGetSingleProductQuery } from "../../redux/features/products/productApi";
-import { ObjectId } from "bson";
 import { Button, Card, Rate } from "antd";
 import Meta from "antd/es/card/Meta";
-import {
-  CarryOutOutlined,
-  CarTwoTone,
-  EditOutlined,
-  FileAddTwoTone,
-  OrderedListOutlined,
-  ShoppingCartOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addToCart } from "../../redux/features/cart/cartSlice";
+import { toast } from "sonner";
 
 const SingleProduct = () => {
   const params = useParams();
-  const { data, isLoading } = useGetSingleProductQuery(params.id);
+  const { data, isLoading } = useGetSingleProductQuery(params.id as string);
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.cart);
   if (isLoading) return <p>loading..</p>;
@@ -35,8 +28,15 @@ const SingleProduct = () => {
   if (isExist && isExist.quantity >= product.stock) {
     noProductLeft = true;
   }
+  const handleAddToCart = () => {
+    dispatch(addToCart(newProduct));
+    toast.success("Product added into cart", { duration: 2000 });
+  };
   return (
-    <>
+    <div className="pt-16">
+      <h1 className="text-center p-4 pt-8 mb-16 font-bold text-4xl font-serif tracking-widest border-b-2 border-amber-950">
+        In Details of the product
+      </h1>
       {noProductLeft ? (
         <Card
           style={{ width: 500 }}
@@ -47,22 +47,42 @@ const SingleProduct = () => {
           actions={[
             // <EditOutlined key="edit" />,
             <NavLink to={`/products/update-product/${product._id}`}>
-              <Button type="primary" ghost>
+              <Button
+                className="bg-[#001529] p-6 text-[white] text-xl"
+                type="primary"
+                ghost
+              >
                 Edit
                 <EditOutlined></EditOutlined>
               </Button>
             </NavLink>,
-            <Button
-              disabled
-              onClick={() => dispatch(addToCart(newProduct))}
-              className="bg-[#001529] text-[white]"
-            >
+            <Button disabled className="bg-[#001529] p-6 text-[white] text-xl">
               Add to Cart
               <ShoppingCartOutlined />
             </Button>,
           ]}
         >
-          <Meta title={product.name} description={product.description} />
+          <div className=" mb-4">
+            <div className="flex justify-between mb-4">
+              <h2 className="text-3xl font-semibold">{product.name}</h2>
+              <Meta className="text-xl" description={product.brand} />
+            </div>
+            <p className="text-lg">{product.description}</p>
+          </div>
+          <hr />
+          <div className="flex gap-4 mt-4 justify-between mb-4">
+            <label className="text-xl">Stock: {product.stock} $</label>
+            <br />
+            <label className="text-lg">Category: {product.category}</label>
+          </div>
+          <hr />
+          <div className="flex gap-4 mt-4 justify-between">
+            <label className="text-xl">Price: {product.price} $</label>
+            <br />
+            <label className="text-lg">
+              reviews: <Rate disabled defaultValue={product.rating} />
+            </label>
+          </div>
         </Card>
       ) : (
         <Card
@@ -74,27 +94,40 @@ const SingleProduct = () => {
           actions={[
             // <EditOutlined key="edit" />,
             <NavLink to={`/products/update-product/${product._id}`}>
-              <Button type="primary" ghost>
+              <Button
+                className="bg-[#001529] p-6 text-[white] text-xl"
+                type="primary"
+                ghost
+              >
                 Edit
                 <EditOutlined></EditOutlined>
               </Button>
             </NavLink>,
             <Button
-              onClick={() => dispatch(addToCart(newProduct))}
-              className="bg-[#001529] text-[white]"
+              onClick={handleAddToCart}
+              className="bg-[#001529] p-6 text-[white] text-xl"
             >
               Add to Cart
               <ShoppingCartOutlined />
             </Button>,
           ]}
         >
-          <div className="flex gap-6 justify-between mb-4">
-            <Meta title={product.name} description={product.brand} />
-            <p>{product.description}</p>
+          <div className=" mb-4">
+            <div className="flex justify-between mb-4">
+              <h2 className="text-3xl font-semibold">{product.name}</h2>
+              <Meta className="text-xl" description={product.brand} />
+            </div>
+            <p className="text-lg">{product.description}</p>
+          </div>
+          <hr />
+          <div className="flex gap-4 mt-4 justify-between mb-4">
+            <label className="text-xl">Stock: {product.stock} $</label>
+            <br />
+            <label className="text-lg">Category: {product.category}</label>
           </div>
           <hr />
           <div className="flex gap-4 mt-4 justify-between">
-            <label className="text-lg">Price: {product.price} $</label>
+            <label className="text-xl">Price: {product.price} $</label>
             <br />
             <label className="text-lg">
               reviews: <Rate disabled defaultValue={product.rating} />
@@ -102,7 +135,7 @@ const SingleProduct = () => {
           </div>
         </Card>
       )}
-    </>
+    </div>
   );
 };
 

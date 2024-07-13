@@ -1,15 +1,10 @@
 import { Button, Card, Pagination, PaginationProps, Rate } from "antd";
 
 import Meta from "antd/es/card/Meta";
-import {
-  useDeleteProductMutation,
-  useGetAllProductsQuery,
-} from "../../redux/features/products/productApi";
+import { useGetAllProductsQuery } from "../../redux/features/products/productApi";
 import { TProduct } from "./product.const";
 import { NavLink } from "react-router-dom";
-import { useAppDispatch } from "../../redux/hooks";
-import { removeFromCart } from "../../redux/features/cart/cartSlice";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import CustomFilter from "../../components/CustomFilter";
 import { useState } from "react";
 
@@ -21,15 +16,17 @@ const Products = () => {
   const [rating, setRating] = useState("");
   const [price, setPrice] = useState("");
   const [query, setQuery] = useState({});
-  const { data: products, isLoading } = useGetAllProductsQuery(query);
-  const [deletProduct] = useDeleteProductMutation();
-  const dispatch = useAppDispatch();
+  const { data: products, isLoading } = useGetAllProductsQuery(query, {
+    pollingInterval: 30000,
+  });
   const { register, handleSubmit } = useForm();
   /* FILTERING */
 
   /* PAGINATION*/
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(10);
+
+  if (isLoading) return <p>loading..</p>;
   const onChange: PaginationProps["onChange"] = (e) => {
     setCurrentPage(e);
     const newQuery = {
@@ -59,11 +56,6 @@ const Products = () => {
   };
   /* PAGINATION*/
 
-  if (isLoading) return <p>loading..</p>;
-  const handleDeleteProduct = (id: string) => {
-    deletProduct(id);
-    dispatch(removeFromCart(id));
-  };
   // search functionality
   const onSubmit = () => {
     const newQuery = {
@@ -81,11 +73,11 @@ const Products = () => {
   //console.log(products?.data);
   console.log(query);
   return (
-    <div className="pt-12">
+    <div className="pt-4">
       {/**search bar */}
-      <div className="grid md:grid-cols-4">
+      <div className="grid md:grid-cols-4 mx-16">
         <div className=" md:col-span-3 ">
-          <h1 className="text-4xl font-bold pt-12 pb-4 text-center my-12">
+          <h1 className="text-center p-4 pt-16 mb-16 font-bold text-4xl font-serif tracking-widest border-b-2 border-amber-950">
             Choose Affordable Sporting Item
           </h1>
           <form
@@ -112,10 +104,13 @@ const Products = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 type="text"
                 placeholder="Search..."
-                className="ml-2 w-full outline-none"
+                className="ml-2 w-full outline-none py-1"
               />
             </div>
-            <Button htmlType="submit" className="mb-4">
+            <Button
+              htmlType="submit"
+              className="bg-[#001529] p-6 text-[white] text-xl mb-4"
+            >
               Search
             </Button>
           </form>
@@ -135,37 +130,47 @@ const Products = () => {
         <div></div>
       </div>
 
-      <div className="flex gap-4 flex-wrap justify-center">
+      <div className="flex gap-8 flex-wrap justify-center mx-8">
         {products?.data?.map((product: TProduct) => (
           <Card
-            style={{ width: 300 }}
+            style={{ width: 350 }}
             key={product._id}
             cover={
-              <img alt="example" className="size-64 p-2" src={product.image} />
+              <img alt="example" className="size-72 p-2" src={product.image} />
             }
             className=""
             actions={[
               <NavLink to={`/products/${product._id}`}>
-                <Button className="bg-[#001529] text-[white]">Explore</Button>
+                <Button className="bg-[#001529] p-6 text-[white] text-xl w-full">
+                  Explore
+                </Button>
               </NavLink>,
               // <EditOutlined key="edit" />,
-              <Button
-                onClick={() => handleDeleteProduct(product._id)}
-                type="primary"
-                danger
-                ghost
-              >
-                Delete
-              </Button>,
             ]}
           >
-            <div className="flex justify-between">
-              <Meta title={product.name} description={product.brand} />
-              <div className="ml-4">
-                <Meta title={`price: ${product.price} $`} />
-                <span>reviews: </span>
-                <Rate className="mt-2" disabled defaultValue={product.rating} />
+            <div className="flex justify-between mb-4">
+              <div>
+                <h2 className="text-xl font-bold ">{product.name}</h2>
+                <p className="text-xl text-[#a4acba]">{product.brand}</p>
               </div>
+              <div className="ml-4">
+                <h3 className="text-xl font-semibold">
+                  Price: {product.price}
+                </h3>
+                <Meta
+                  className="text-xl"
+                  description={`category: ${product.category}`}
+                />
+              </div>
+            </div>
+            <hr />
+            <div className="my-2">
+              <p className="text-lg">{product.description.slice(0, 100)}...</p>
+            </div>
+            <hr />
+            <div className="flex justify-between items-center mt-4 text-[16px]">
+              <Rate className="mt-2" disabled defaultValue={product.rating} />
+              <p className="text-xl">stock: {product.stock}</p>
             </div>
           </Card>
         ))}
@@ -179,6 +184,15 @@ const Products = () => {
           onChange={onChange}
           showSizeChanger
           onShowSizeChange={onShowSizeChange}
+          itemRender={(_current, type, originalElement) => (
+            <span
+              className={`${
+                type === "page" ? "text-xl" : ""
+              } ant-pagination-item-link`}
+            >
+              {originalElement}
+            </span>
+          )}
         ></Pagination>
       </div>
       {/* PAGINATION */}
