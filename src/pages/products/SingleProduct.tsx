@@ -113,7 +113,7 @@ const SingleProduct = () => {
           </div>
           <hr />
           <div className="flex gap-4 mt-4 justify-between mb-4">
-            <label className="text-lg">Stock: {product.stock} $</label>
+            <label className="text-lg">Stock: {product.stock}</label>
             <br />
             <label className="text-lg">Category: {product.category}</label>
           </div>

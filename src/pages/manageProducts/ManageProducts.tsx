@@ -11,9 +11,9 @@ import { AppstoreAddOutlined, EditOutlined } from "@ant-design/icons";
 import { toast } from "sonner";
 
 const ManageProducts = () => {
-  const { data, isLoading } = useGetAllProductsQuery({});
   const [deletProduct] = useDeleteProductMutation();
   const dispatch = useAppDispatch();
+  const { data, isLoading } = useGetAllProductsQuery({ limit: 200 });
   if (isLoading) return <p>loading..</p>;
   const handleDeleteProduct = async (id: string) => {
     try {

@@ -10,6 +10,7 @@ import UpdateProduct from "../pages/products/UpdateProduct";
 import PlaceOrder from "../pages/PlaceOrder";
 import ManageProducts from "../pages/manageProducts/ManageProducts";
 import Success from "../pages/Success";
+import Login from "../pages/Login/Login";
 
 const router = createBrowserRouter([
   {
@@ -44,17 +45,19 @@ const router = createBrowserRouter([
         path: "/products/update-product/:id",
         element: <UpdateProduct />,
         loader: ({ params }) =>
-          fetch(
-            `https://express-mongo-server-jakaria-hossains-projects.vercel.app/api/v1/products/${params.id}`
-          ),
+          fetch(`http://localhost:5000/api/v1/products/${params.id}`),
       },
       {
         path: "/place-order",
         element: <PlaceOrder />,
       },
       {
-        path: "/manage-products",
+        path: "/admin",
         element: <ManageProducts />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
       {
         path: "/success",

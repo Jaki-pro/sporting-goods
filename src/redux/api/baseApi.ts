@@ -4,8 +4,7 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   tagTypes: ["products"],
   baseQuery: fetchBaseQuery({
-    baseUrl:
-      "https://express-mongo-server-jakaria-hossains-projects.vercel.app/api/v1",
+    baseUrl: "http://localhost:5000/api/v1",
   }),
   endpoints: () => ({}),
 });

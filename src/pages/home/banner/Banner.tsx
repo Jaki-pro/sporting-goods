@@ -3,6 +3,7 @@ import volleyball from "../../../assets/volleyball.png";
 import gloves from "../../../assets/gloves.png";
 import { Carousel } from "antd";
 import "./Banner.css";
+import { Link } from "react-router-dom";
 const Banner = () => {
   return (
     <div className="">
@@ -14,7 +15,9 @@ const Banner = () => {
                 Feather D-45 Premium
               </h1>
               <div className="discount-text">50% OFF Today Only!</div>
-              <button className="banner-button">Learn More</button>
+              <Link to={"http://github.com/jaki-pro"}>
+                <button className="banner-button">Learn More</button>
+              </Link>
             </div>
             <div className="lg:w-1/4 w-1/2">
               <img className="w-full" src={feather} alt="Banner" />
