@@ -21,6 +21,7 @@ const NavBar = () => {
   }, [cartItems]);
   // Navebar iteraton
   //console.log(cartItems.length);
+  console.log("user", user);
   const menuItems = [
     { endpoint: "admin", name: "Admin" },
     { endpoint: "", name: "Home" },
@@ -31,7 +32,7 @@ const NavBar = () => {
       ? { endpoint: "logout", name: "Logout" }
       : { endpoint: "login", name: "Login" },
   ];
-
+  if (user?.role !== "admin") menuItems.shift();
   const items = menuItems.map((item, index) => {
     return {
       key: index,

@@ -129,19 +129,26 @@ const Products = () => {
       <div className="flex gap-6 flex-wrap justify-center mx-8">
         {products?.data?.map((product: TProduct) => (
           <Card
-            style={{ width: 275 }}
+            style={{
+              width: 275,
+              borderRadius: "15px",
+              overflow: "hidden",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
             key={product._id}
             cover={
               <img
                 alt="example"
-                className="size-48 p-2 rounded-md"
+                className="size-48 p-2 rounded-t-lg object-cover"
                 src={product.image}
+                style={{ height: "200px", width: "100%", objectFit: "cover" }}
               />
             }
-            className=""
+            className="hover:scale-105 hover:shadow-xl"
             actions={[
               <NavLink to={`/products/${product._id}`}>
-                <Button className="bg-[#001529] p-4 text-[white] text-lg w-full">
+                <Button className="bg-gradient-to-r from-[#001529] to-[#1890ff] p-4 text-[white] text-lg w-full rounded-md shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
                   Explore
                 </Button>
               </NavLink>,
@@ -149,18 +156,25 @@ const Products = () => {
             ]}
           >
             <div className="flex justify-between mb-4">
-              <h3 className="text-lg font-bold ">{product.name}</h3>
-
-              <h3 className="text-lg font-semibold">Price: {product.price}</h3>
+              <h3 className="text-lg font-bold text-gray-900">
+                {product.name}
+              </h3>
+              <h3 className="text-lg font-semibold text-[#1890ff]">
+                Price: ${product.price}
+              </h3>
             </div>
             <hr />
-            <div className="my-2">
-              <p className="text-md">{product.description.slice(0, 100)}...</p>
-            </div>
+
             <hr />
             <div className="flex justify-between items-center mt-4 text-[16px]">
-              <Rate className="mt-2" disabled defaultValue={product.rating} />
-              <p className="text-lg">stock: {product.stock}</p>
+              <Rate
+                className="mt-2 text-yellow-500"
+                disabled
+                defaultValue={product.rating}
+              />
+              <p className="text-lg font-medium text-gray-800">
+                Stock: {product.stock}
+              </p>
             </div>
           </Card>
         ))}

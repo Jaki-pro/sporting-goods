@@ -1,45 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form, Input, Typography, Row, Col, Card } from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../../redux/features/auth/authApi";
-import { useAppDispatch } from "../../redux/hooks";
-import { jwtDecode } from "jwt-decode";
 import { toast } from "sonner";
-import { setUser } from "../../redux/features/auth/authSlice";
+import { useAddCustomerMutation } from "../../redux/features/customer/customerApi";
+
 const { Title, Text } = Typography;
 
-const Login: React.FC = () => {
-  const [errorMessage, setErrorMessage] = useState("");
+const SignUp: React.FC = () => {
   const navigate = useNavigate();
-  const [login, { data, error }] = useLoginMutation();
-  const dispatch = useAppDispatch();
+  const [addCustomer, { data, error }] = useAddCustomerMutation();
+
   const onFinish = async (values: any) => {
-    console.log("Success:", values);
-    const toastId = toast.loading("logging in");
+    //console.log("Success:", values);
+    const customerData = {
+      email: values.email,
+      password: values.password,
+      name: {
+        firstName: values.firstName,
+        lastName: values.lastName,
+      },
+    };
+    console.log(customerData);
+    const toastId = toast.loading("Creating account...");
     try {
-      const res = await login(values).unwrap();
-      //console.log(res);
-      console.log(res);
-      const token = res.data.accessToken;
-      const user = jwtDecode(token);
-      const userInfo = {
-        user,
-        token,
-      };
-      dispatch(setUser(userInfo));
-      toast.success("user logged in successfully", {
+      // Simulate API call or perform account creation logic
+      const customer = await addCustomer(customerData);
+      //console.log("ok", customer);
+      //console.log(customerData);
+      if (customer?.error) throw new Error();
+      toast.success("Account created successfully", {
         id: toastId,
         duration: 2000,
       });
-      navigate(`/`); // if user logged in successful then redirect to dashboard
+      navigate(`/login`); // Redirect to login after successful account creation
     } catch (err) {
-      console.log(err?.data?.message);
-      setErrorMessage(err?.data?.message);
-      toast.error(errorMessage, { id: toastId, duration: 2000 });
+      //console.error("Error creating account:", err);
+      toast.error("Failed to create account", {
+        id: toastId,
+        duration: 2000,
+      });
     }
-    // Simulate login success
-    //navigate("/dashboard");
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -68,22 +69,46 @@ const Login: React.FC = () => {
           >
             <div style={{ textAlign: "center", marginBottom: "24px" }}>
               <Title level={3} style={{ marginBottom: "0px" }}>
-                Welcome Back
+                Create Account
               </Title>
-              <Text style={{ color: "gray" }}>Login to your account</Text>
+              <Text style={{ color: "gray" }}>Join us today!</Text>
             </div>
             <Form
-              name="login"
+              name="createAccount"
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="off"
               layout="vertical"
             >
               <Form.Item
+                label="First Name"
+                name="firstName"
+                rules={[
+                  { required: true, message: "Please input your First Name!" },
+                ]}
+              >
+                <Input placeholder="Enter your First Name" />
+              </Form.Item>
+
+              <Form.Item
+                label="Last Name"
+                name="lastName"
+                rules={[
+                  { required: true, message: "Please input your Last Name!" },
+                ]}
+              >
+                <Input placeholder="Enter your Last Name" />
+              </Form.Item>
+
+              <Form.Item
                 label="Email"
                 name="email"
                 rules={[
                   { required: true, message: "Please input your Email!" },
+                  {
+                    type: "email",
+                    message: "Please enter a valid email address!",
+                  },
                 ]}
               >
                 <Input
@@ -96,14 +121,19 @@ const Login: React.FC = () => {
                 label="Password"
                 name="password"
                 rules={[
-                  { required: true, message: "Please input your password!" },
+                  { required: true, message: "Please input your Password!" },
+                  {
+                    min: 6,
+                    message: "Password must be at least 6 characters long!",
+                  },
                 ]}
               >
                 <Input.Password
                   prefix={<LockOutlined />}
-                  placeholder="Enter your password"
+                  placeholder="Enter your Password"
                 />
               </Form.Item>
+
               <Form.Item>
                 <Button
                   type="primary"
@@ -114,7 +144,7 @@ const Login: React.FC = () => {
                     borderColor: "#f6ad55",
                   }}
                 >
-                  Login
+                  Create Account
                 </Button>
               </Form.Item>
             </Form>
@@ -126,14 +156,9 @@ const Login: React.FC = () => {
               }}
             >
               <Text>
-                <a href="/forgot-password" style={{ color: "#f6ad55" }}>
-                  Forgot Password?
-                </a>
-              </Text>
-              <Text>
-                New User?{" "}
-                <Link to="/signup" style={{ color: "#f6ad55" }}>
-                  Create Account
+                Already have an account?{" "}
+                <Link to="/login" style={{ color: "#f6ad55" }}>
+                  Login
                 </Link>
               </Text>
             </div>
@@ -144,4 +169,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default SignUp;
