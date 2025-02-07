@@ -2,39 +2,39 @@ import { baseApi } from "../../api/baseApi";
 
 const customerApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    addCustomer: builder.mutation({
+    addAdmin: builder.mutation({
       query: (payload) => {
+        console.log("nooo");
         return {
-          url: "/users/create-customer",
+          url: "/users/create-admin",
           method: "POST",
           body: payload,
         };
       },
-      invalidatesTags: ["customers"],
+      invalidatesTags: ["admins"],
     }),
-    getAllCustomer: builder.query({
+    getAllAdmin: builder.query({
       query: () => {
         return {
-          url: "/customers",
+          url: "/admins",
           method: "GET",
         };
       },
-      providesTags: ["customers"],
+      providesTags: ["admins"],
     }),
-    deleteCustomer: builder.mutation({
+    deleteAdmin: builder.mutation({
       query: (id) => {
-        console.log(id);
         return {
-          url: `/customers/${id}`,
+          url: `/admins/${id}`,
           method: "DELETE",
         };
       },
-      invalidatesTags: ["customers"],
+      invalidatesTags: ["admins"],
     }),
   }),
 });
 export const {
-  useAddCustomerMutation,
-  useGetAllCustomerQuery,
-  useDeleteCustomerMutation,
+  useGetAllAdminQuery,
+  useDeleteAdminMutation,
+  useAddAdminMutation,
 } = customerApi;

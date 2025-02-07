@@ -8,11 +8,15 @@ import SingleProduct from "../pages/products/SingleProduct";
 import CartItems from "../pages/cart/CartItems";
 import UpdateProduct from "../pages/products/UpdateProduct";
 import PlaceOrder from "../pages/PlaceOrder";
-import ManageProducts from "../pages/manageProducts/ManageProducts";
 import Success from "../pages/Success";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
-
+import NotFoundPage from "../pages/notfound/NotFoundPage";
+import Dashboard from "../pages/admin/Dashboard";
+import ManageUsers from "../pages/admin/ManageUsers";
+import ManageAdmins from "../pages/admin/ManageAdmins";
+import Profile from "../pages/admin/Profile";
+import ManageProducts from "../pages/admin/ManageProducts";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -46,7 +50,9 @@ const router = createBrowserRouter([
         path: "/products/update-product/:id",
         element: <UpdateProduct />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/products/${params.id}`),
+          fetch(
+            `https://express-mongo-server.vercel.app/api/v1/products/${params.id}`
+          ),
       },
       {
         path: "/place-order",
@@ -54,7 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/admin",
-        element: <ManageProducts />,
+        element: <Dashboard />,
       },
       {
         path: "/login",
@@ -68,7 +74,27 @@ const router = createBrowserRouter([
         path: "/success",
         element: <Success />,
       },
+      {
+        path: "/admin/manage-products",
+        element: <ManageProducts />,
+      },
+      {
+        path: "/admin/manage-users",
+        element: <ManageUsers />,
+      },
+      {
+        path: "/admin/manage-admins",
+        element: <ManageAdmins />,
+      },
+      {
+        path: "/admin/profile",
+        element: <Profile />,
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);
 export default router;

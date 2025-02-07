@@ -10,8 +10,9 @@ import { logout } from "../redux/features/auth/authSlice";
 const { useBreakpoint } = Grid;
 
 const NavBar = () => {
-  const { user, token } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
   const { items: cartItems } = useAppSelector((state) => state.cart);
+
   const dispatch = useAppDispatch();
   const [cartCount, setCartCount] = useState(cartItems.length);
   useEffect(() => {
@@ -19,9 +20,6 @@ const NavBar = () => {
     for (const val of cartItems) sum += val.quantity;
     setCartCount(sum);
   }, [cartItems]);
-  // Navebar iteraton
-  //console.log(cartItems.length);
-  console.log("user", user);
   const menuItems = [
     { endpoint: "admin", name: "Admin" },
     { endpoint: "", name: "Home" },
@@ -63,9 +61,7 @@ const NavBar = () => {
       ),
     };
   });
-  // Navbar iteration
 
-  console.log(user);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const screens = useBreakpoint();
 
@@ -91,7 +87,8 @@ const NavBar = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-start", // Adjusted this to keep items aligned
-          background: "linear-gradient(90deg, #00203FFF,rgb(85, 127, 146))",
+          //background: "linear-gradient(90deg, #00203FFF,rgb(85, 127, 146))",
+          background: "#606C38",
           boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
           padding: "0 16px", // Reduced padding for smaller space
         }}
@@ -139,7 +136,7 @@ const NavBar = () => {
           onClose={toggleDrawer}
           width={"50%"}
           open={drawerVisible}
-          bodyStyle={{
+          style={{
             padding: 0,
           }}
         >

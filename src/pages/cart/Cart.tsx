@@ -17,12 +17,10 @@ const Cart = ({ item }: { item: TCartItem }) => {
   };
   const price = item.price * item.quantity;
   return (
-    <div className="bg-white rounded-md flex justify-between items-center p-3 border">
+    <div className="bg-[#606C38] rounded-md flex justify-between items-center p-3 border">
       <Button
         onClick={() => handleDeleteItem(item?.productId)}
-        type="primary"
-        danger
-        className="md:mr-16 sm:mr-8 mr-4"
+        className="md:mr-16 sm:mr-8 mr-4 bg-[#DDA15E]"
       >
         X
       </Button>
@@ -51,7 +49,6 @@ const Cart = ({ item }: { item: TCartItem }) => {
         <p>{item.quantity}</p>
         <Button
           onClick={() => dispatch(increaseQuantity(item?.productId))}
-          danger
           className=""
         >
           +

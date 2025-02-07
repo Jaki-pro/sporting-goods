@@ -8,7 +8,7 @@ import Home from "./pages/home/Home";
 function App() {
   const path = useLocation();
   return (
-    <div className="">
+    <div className="bg-primary">
       <NavBar />
       {path.pathname === "/" && <Banner />}
       {path.pathname === "/" && (

@@ -1,8 +1,4 @@
 import { baseApi } from "../../api/baseApi";
-type TUser = {
-  id: string;
-  password: string;
-};
 
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

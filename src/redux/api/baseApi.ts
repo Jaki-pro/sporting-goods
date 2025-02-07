@@ -2,9 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
   reducerPath: "baseApi",
-  tagTypes: ["products"],
+  tagTypes: ["products", "customers", "admins"],
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1",
+    baseUrl: "https://express-mongo-server.vercel.app/api/v1",
   }),
   endpoints: () => ({}),
 });

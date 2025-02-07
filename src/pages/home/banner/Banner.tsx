@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 const Banner = () => {
   return (
     <div className="">
-      <Carousel className=" " autoplay>
-        <div>
+      <Carousel className="" autoplay>
+        <div className="">
           <div className="banner">
             <div className="banner-content">
               <h1 className="tracking-widest  banner-heading">

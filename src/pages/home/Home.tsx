@@ -2,7 +2,6 @@ import { useGetAllProductsQuery } from "../../redux/features/products/productApi
 import { TProduct } from "../products/product.const";
 import { NavLink } from "react-router-dom";
 import { Button, Card, Rate } from "antd";
-import Meta from "antd/es/card/Meta";
 import Contact from "../Contact";
 
 const Home = () => {
@@ -14,7 +13,7 @@ const Home = () => {
   const products = data?.data;
   return (
     <div>
-      <h1 className="text-center p-4 pt-16 mb-16 font-bold text-4xl font-serif tracking-widest border-b-2 border-amber-950">
+      <h1 className="text-center text-white p-4 pt-16 mb-16 font-bold text-4xl font-serif tracking-widest border-b-2 border-[#606C38]">
         Latest Sporting Collection
       </h1>
       <div className="flex flex-wrap mb-12 gap-6 justify-center">
@@ -26,6 +25,7 @@ const Home = () => {
               overflow: "hidden",
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
               transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              background: "#606C38",
             }}
             key={product._id}
             cover={
@@ -51,7 +51,7 @@ const Home = () => {
                 {product.name}
               </h3>
               <h3 className="text-lg font-semibold text-[#1890ff]">
-                Price: ${product.price}
+                Price: BDT {product.price}
               </h3>
             </div>
             <hr />

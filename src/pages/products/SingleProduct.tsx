@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { NavLink, useParams } from "react-router-dom";
 // import { useGetSingleProductQuery } from "../../redux/features/products/productApi";
 // import { Button, Card, Rate } from "antd";
@@ -180,7 +181,9 @@ const SingleProduct = () => {
     <div className="product-details-container pt-16">
       <Row className="p-4">
         <Col span={24} className="text-center">
-          <h1 className="font-bold text-4xl mb-8">Product Details</h1>
+          <h1 className="font-bold text-4xl mb-8 text-[white]">
+            Product Details
+          </h1>
         </Col>
       </Row>
       <Row justify="center" gutter={[16, 16]}>
@@ -226,7 +229,7 @@ const SingleProduct = () => {
                   {product.stock > 0 ? product.stock : "Out of stock"}
                 </p>
                 <p className="text-lg">
-                  <strong>Price:</strong> ${product.price}
+                  <strong>Price:</strong> {product.price}
                 </p>
                 <Rate disabled defaultValue={product.rating} />
               </div>
@@ -240,7 +243,7 @@ const SingleProduct = () => {
                 disabled={noProductLeft || product.stock === 0}
                 onClick={handleAddToCart}
                 style={{
-                  backgroundColor: "#1a73e8",
+                  backgroundColor: "#606C38",
                   borderColor: "#1a73e8",
                   color: "#fff",
                 }}

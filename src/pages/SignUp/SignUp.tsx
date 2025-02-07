@@ -1,18 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Button, Form, Input, Typography, Row, Col, Card } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAddCustomerMutation } from "../../redux/features/customer/customerApi";
-
 const { Title, Text } = Typography;
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
-  const [addCustomer, { data, error }] = useAddCustomerMutation();
+  const [addCustomer] = useAddCustomerMutation();
 
   const onFinish = async (values: any) => {
-    //console.log("Success:", values);
     const customerData = {
       email: values.email,
       password: values.password,

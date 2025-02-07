@@ -4,9 +4,15 @@ type TInputProps = {
   name: string;
   type: string;
   label?: string;
+  isRequired?: boolean;
 };
 
-const CustomInput = ({ name, type, label }: TInputProps) => {
+const CustomInput = ({
+  name,
+  type,
+  label,
+  isRequired = false,
+}: TInputProps) => {
   const { control } = useFormContext();
   return (
     <div style={{ marginBottom: "20px" }}>
@@ -15,7 +21,9 @@ const CustomInput = ({ name, type, label }: TInputProps) => {
         name={name}
         control={control}
         rules={{ required: "Name is required" }}
-        render={({ field }) => <Input {...field} type={type} name={name} />}
+        render={({ field }) => (
+          <Input {...field} required={isRequired} type={type} name={name} />
+        )}
       />
     </div>
   );

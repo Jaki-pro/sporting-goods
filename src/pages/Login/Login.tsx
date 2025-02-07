@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { Button, Form, Input, Typography, Row, Col, Card } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -12,14 +13,14 @@ const { Title, Text } = Typography;
 const Login: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const [login, { data, error }] = useLoginMutation();
+  const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
+
   const onFinish = async (values: any) => {
     console.log("Success:", values);
-    const toastId = toast.loading("logging in");
+    const toastId = toast.loading("Logging in...");
     try {
       const res = await login(values).unwrap();
-      //console.log(res);
       console.log(res);
       const token = res.data.accessToken;
       const user = jwtDecode(token);
@@ -28,18 +29,19 @@ const Login: React.FC = () => {
         token,
       };
       dispatch(setUser(userInfo));
-      toast.success("user logged in successfully", {
+      toast.success("User logged in successfully", {
         id: toastId,
         duration: 2000,
       });
-      navigate(`/`); // if user logged in successful then redirect to dashboard
-    } catch (err) {
+      navigate(`/`);
+    } catch (err: any) {
       console.log(err?.data?.message);
       setErrorMessage(err?.data?.message);
-      toast.error(errorMessage, { id: toastId, duration: 2000 });
+      toast.error(errorMessage || "Login failed", {
+        id: toastId,
+        duration: 2000,
+      });
     }
-    // Simulate login success
-    //navigate("/dashboard");
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -53,21 +55,21 @@ const Login: React.FC = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background:
-          "linear-gradient(135deg,rgb(249, 249, 249) 0%,rgb(205, 187, 181) 100%)",
+        background: "linear-gradient(135deg, #f1f1f1 0%, #d6c7be 100%)",
       }}
     >
       <Row justify="center" align="middle" style={{ width: "100%" }}>
         <Col xs={22} sm={18} md={12} lg={8}>
           <Card
             style={{
-              borderRadius: "10px",
+              borderRadius: "12px",
               boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
               padding: "24px",
+              background: "#fff",
             }}
           >
             <div style={{ textAlign: "center", marginBottom: "24px" }}>
-              <Title level={3} style={{ marginBottom: "0px" }}>
+              <Title level={3} style={{ marginBottom: "5px" }}>
                 Welcome Back
               </Title>
               <Text style={{ color: "gray" }}>Login to your account</Text>
@@ -78,6 +80,10 @@ const Login: React.FC = () => {
               onFinishFailed={onFinishFailed}
               autoComplete="off"
               layout="vertical"
+              initialValues={{
+                email: "admin@gmail.com", // Default email
+                password: "123456", // Default password
+              }}
             >
               <Form.Item
                 label="Email"
@@ -104,6 +110,7 @@ const Login: React.FC = () => {
                   placeholder="Enter your password"
                 />
               </Form.Item>
+
               <Form.Item>
                 <Button
                   type="primary"

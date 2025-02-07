@@ -73,7 +73,7 @@ const Products = () => {
       {/**search bar */}
       <div className="grid md:grid-cols-4 mx-16">
         <div className=" md:col-span-3 ">
-          <h1 className="text-center p-4 pt-16 mb-16 font-bold text-4xl font-serif tracking-widest border-b-2 border-amber-950">
+          <h1 className="text-[white] text-center p-4 pt-16 mb-16 font-bold text-4xl font-serif tracking-widest border-b-2 border-[#606C38]">
             Choose Affordable Sporting Item
           </h1>
           <form
@@ -105,7 +105,7 @@ const Products = () => {
             </div>
             <Button
               htmlType="submit"
-              className="bg-[#001529] p-5 text-[white] text-lg mb-4"
+              className="bg-[#606C38] p-5 text-[white] text-lg mb-4"
             >
               Search
             </Button>
@@ -135,6 +135,7 @@ const Products = () => {
               overflow: "hidden",
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
               transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              backgroundColor: "#606C38", // Set background color to red
             }}
             key={product._id}
             cover={
@@ -147,24 +148,19 @@ const Products = () => {
             }
             className="hover:scale-105 hover:shadow-xl"
             actions={[
-              <NavLink to={`/products/${product._id}`}>
-                <Button className="bg-gradient-to-r from-[#001529] to-[#1890ff] p-4 text-[white] text-lg w-full rounded-md shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+              <NavLink className="" to={`/products/${product._id}`}>
+                <Button className="bg-gradient-to-r from-[#001529] to-[#606C38] p-4 text-[white] text-lg w-full rounded-md shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
                   Explore
                 </Button>
               </NavLink>,
-              // <EditOutlined key="edit" />,
             ]}
           >
             <div className="flex justify-between mb-4">
-              <h3 className="text-lg font-bold text-gray-900">
-                {product.name}
-              </h3>
-              <h3 className="text-lg font-semibold text-[#1890ff]">
-                Price: ${product.price}
+              <h3 className="text-lg font-bold text-[white]">{product.name}</h3>
+              <h3 className="text-lg font-semibold text-[white]">
+                Price: BDT {product.price}
               </h3>
             </div>
-            <hr />
-
             <hr />
             <div className="flex justify-between items-center mt-4 text-[16px]">
               <Rate
@@ -188,6 +184,7 @@ const Products = () => {
           onChange={onChange}
           showSizeChanger
           onShowSizeChange={onShowSizeChange}
+          className=""
         ></Pagination>
       </div>
       {/* PAGINATION */}
