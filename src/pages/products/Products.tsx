@@ -1,8 +1,8 @@
-import { Button, Card, Pagination, PaginationProps, Rate } from "antd";
+import { Button, Pagination, PaginationProps } from "antd";
 
 import { useGetAllProductsQuery } from "../../redux/features/products/productApi";
 import { TProduct } from "./product.const";
-import { NavLink } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import CustomFilter from "../../components/CustomFilter";
 import { useState } from "react";
@@ -24,7 +24,7 @@ const Products = () => {
   /* PAGINATION*/
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(10);
-
+  const navigate = useNavigate();
   if (isLoading) return <p>loading..</p>;
   const onChange: PaginationProps["onChange"] = (e) => {
     setCurrentPage(e);
@@ -126,53 +126,62 @@ const Products = () => {
         <div></div>
       </div>
 
-      <div className="flex gap-6 flex-wrap justify-center mx-8">
+      <div className="flex gap-4 flex-wrap justify-center mx-4">
         {products?.data?.map((product: TProduct) => (
-          <Card
-            style={{
-              width: 275,
-              borderRadius: "15px",
-              overflow: "hidden",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              backgroundColor: "#606C38", // Set background color to red
-            }}
-            key={product._id}
-            cover={
+          <div onClick={()=>{
+            navigate(`/products/${product._id}`)
+          }} className="cursor-pointer   sm:w-[300px] rounded-xl overflow-hidden bg-[#606c38] shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl">
+            {/* Image Section */}
+            <div className="p-4  flex justify-center items-center">
               <img
-                alt="example"
-                className="size-48 p-2 rounded-t-lg object-cover"
+                alt={product.name}
                 src={product.image}
-                style={{ height: "200px", width: "100%", objectFit: "cover" }}
+                className="size-64 p-2 rounded-lg bg-[#f4f4f4] object-cover  shadow-md transition-all duration-300 hover:shadow-lg"
               />
-            }
-            className="hover:scale-105 hover:shadow-xl"
-            actions={[
-              <NavLink className="" to={`/products/${product._id}`}>
-                <Button className="bg-gradient-to-r from-[#001529] to-[#606C38] p-4 text-[white] text-lg w-full rounded-md shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+            </div>
+
+            {/* Product Details */}
+            <div className="px-5 py-4">
+              {/* Product Name & Price */}
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="text-lg font-bold text-gray-900">{product.name}</h3>
+                <h3 className="text-lg font-extrabold text-green-600">BDT {product.price}</h3>
+              </div>
+
+              <hr className="my-2 border-gray-300" />
+
+              {/* Rating & Stock */}
+              <div className="flex justify-between items-center mt-3">
+                {/* Rating Stars */}
+                <div className="flex space-x-1">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <span
+                      key={index}
+                      className={`text-lg ${index < product.rating ? "text-yellow-400" : "text-gray-300"
+                        }`}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+
+                {/* Stock Status */}
+                <p
+                  className={`text-lg font-semibold ${product.stock > 0 ? "text-gray-800" : "text-red-500"
+                    }`}
+                >
+                  {product.stock > 0 ? `Stock: ${product.stock}` : "Out of Stock"}
+                </p>
+              </div>
+
+              {/* Explore Button */}
+              {/* <NavLink to={`/products/${product._id}`} className="block mt-4">
+                <button className="w-full bg-gradient-to-r from-green-600 to-green-400 text-white text-lg rounded-md py-3 font-semibold shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl">
                   Explore
-                </Button>
-              </NavLink>,
-            ]}
-          >
-            <div className="flex justify-between mb-4">
-              <h3 className="text-lg font-bold text-[white]">{product.name}</h3>
-              <h3 className="text-lg font-semibold text-[white]">
-                Price: BDT {product.price}
-              </h3>
+                </button>
+              </NavLink> */}
             </div>
-            <hr />
-            <div className="flex justify-between items-center mt-4 text-[16px]">
-              <Rate
-                className="mt-2 text-yellow-500"
-                disabled
-                defaultValue={product.rating}
-              />
-              <p className="text-lg font-medium text-gray-800">
-                Stock: {product.stock}
-              </p>
-            </div>
-          </Card>
+          </div>
         ))}
       </div>
 

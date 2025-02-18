@@ -87,10 +87,11 @@ const NavBar = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-start", // Adjusted this to keep items aligned
-          //background: "linear-gradient(90deg, #00203FFF,rgb(85, 127, 146))",
-          background: "#606C38",
+          // background: "linear-gradient(90deg, #1F2937  , #111827)",
+          background: "#606c38",
           boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
           padding: "0 16px", // Reduced padding for smaller space
+          
         }}
       >
         <NavLink to="/" style={{ margin: 0 }}>
